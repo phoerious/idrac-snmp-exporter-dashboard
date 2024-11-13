@@ -1,0 +1,4968 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:208",
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "iDRAC SNMP Host Metrics",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 387,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 182,
+      "panels": [],
+      "title": "iDRAC Summary",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 0,
+        "y": 1
+      },
+      "id": 179,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(systemRackName{job=\"prometheus-snmp-exporter\"})",
+          "fullMetaSearch": false,
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "show tag values cardinality from \"idrac-hosts\" with key = \"system-name\"",
+          "range": false,
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [],
+          "useBackend": false
+        }
+      ],
+      "title": "Host Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "systemPowerState"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "off": {
+                        "color": "red",
+                        "index": 2,
+                        "text": "Off"
+                      },
+                      "on": {
+                        "color": "green",
+                        "index": 3,
+                        "text": "On"
+                      },
+                      "other": {
+                        "color": "blue",
+                        "index": 0,
+                        "text": "Other"
+                      },
+                      "unknown": {
+                        "color": "#808080",
+                        "index": 1,
+                        "text": "Unkown"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.width",
+                "value": 180
+              },
+              {
+                "id": "displayName",
+                "value": "Power State"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "globalSystemStatus"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#E0B400",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "critical": {
+                        "color": "red",
+                        "index": 3,
+                        "text": "Critical Fail"
+                      },
+                      "nonCritical": {
+                        "color": "orange",
+                        "index": 2,
+                        "text": "Non-Critical Fail"
+                      },
+                      "nonRecoverable": {
+                        "color": "red",
+                        "index": 4,
+                        "text": "Non-Recoverable Fail"
+                      },
+                      "ok": {
+                        "color": "green",
+                        "index": 5,
+                        "text": "OK"
+                      },
+                      "other": {
+                        "color": "yellow",
+                        "index": 0,
+                        "text": "Other"
+                      },
+                      "unknown": {
+                        "color": "#808080",
+                        "index": 1,
+                        "text": "Unkown"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.width",
+                "value": 180
+              },
+              {
+                "id": "displayName",
+                "value": "System Status"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #systemPowerUpTime"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              },
+              {
+                "id": "displayName",
+                "value": "Uptime"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "instance"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": false,
+                    "title": "Details",
+                    "url": "/d/P24pq0j321/idrac-host-stats?orgId=1&var-idrac_host=${__value.text}"
+                  },
+                  {
+                    "targetBlank": true,
+                    "title": "iDrac",
+                    "url": "https://${__value.text}/"
+                  }
+                ]
+              },
+              {
+                "id": "displayName",
+                "value": "System Name"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "systemServiceTag"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Service Tag"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "systemModelName"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "System Model"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "firmwareVersionName"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Firmware Version"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "systemBIOSVersionName"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "BIOS Version"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 22,
+        "x": 2,
+        "y": 1
+      },
+      "id": 119,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "System Status"
+          }
+        ]
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemPowerState{job=\"prometheus-snmp-exporter\"} == 1",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "system-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "systemPowerState",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "system-model"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "globalSystemStatus{job=\"prometheus-snmp-exporter\"} == 1",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "system-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "globalSystemStatus",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "power-state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemServiceTag{job=\"prometheus-snmp-exporter\"}",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "system-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "systemServiceTag",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "idrac-url"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemModelName{job=\"prometheus-snmp-exporter\"}",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "system-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"bios-version\" FROM \"idrac-hosts\" WHERE (\"system-name\" =~ /^$idrac_host$/) AND $timeFilter GROUP BY \"system-name\" LIMIT 1",
+          "range": false,
+          "rawQuery": false,
+          "refId": "systemModelName",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "system-servicetag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "firmwareVersionName{job=\"prometheus-snmp-exporter\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "firmwareVersionName"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemBIOSVersionName{job=\"prometheus-snmp-exporter\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "systemBIOSVersionName"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemPowerUpTime{job=\"prometheus-snmp-exporter\"}",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "system-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "systemPowerUpTime",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "system-globalstatus"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "System Overview",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "instance",
+            "mode": "outer"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "instance",
+                "systemPowerState",
+                "globalSystemStatus",
+                "systemServiceTag",
+                "systemModelName",
+                "firmwareVersionName",
+                "systemBIOSVersionName",
+                "Value #systemPowerUpTime"
+              ]
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "instance"
+              }
+            ]
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "globalSystemStatus"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Systems OK"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical Fails"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Non-Critical Fails"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "orange",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Non-Recoverable Fails"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Other Status"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "blue",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unknown Status"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#848484",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 2,
+        "x": 0,
+        "y": 4
+      },
+      "id": 650,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"ok\"} == 1)",
+          "instant": true,
+          "legendFormat": "Systems OK",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"nonCritical\"} == 1)",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Critical Fails",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"critical\"} == 1)",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Non-Critical Fails",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"nonRecoverable\"} == 1)",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Non-Recoverable Fails",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"other\"} == 1)",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Other Status",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"unknown\"} == 1)",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Unknown Status",
+          "range": false,
+          "refId": "F"
+        }
+      ],
+      "title": "System Status",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 4,
+      "panels": [],
+      "repeat": "idrac_host",
+      "title": "Host $idrac_host",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 0,
+        "y": 16
+      },
+      "id": 6,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Value$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemPowerUpTime{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "system-uptime"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "System Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 2,
+        "y": 16
+      },
+      "id": 8,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemServiceTag{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"system-servicetag\" FROM /^$idrac_host$/ WHERE (\"system-name\" =~ /^$idrac_host$/) AND $timeFilter",
+          "range": false,
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "system-servicetag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "Service Tag",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "systemServiceTag"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 4,
+        "y": 16
+      },
+      "id": 651,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^firmwareVersionName$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "min(firmwareVersionName{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}) by(firmwareVersionName)",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "bios-version"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "Firmware Version",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": []
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 6,
+        "y": 16
+      },
+      "id": 21,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^systemBIOSVersionName$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemBIOSVersionName{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "bios-version"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "BIOS Version",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "systemBIOSVersionName"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "physicalDiskName"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Disk Name"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #physicalDiskCapacityInMB"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Capacity"
+              },
+              {
+                "id": "unit",
+                "value": "decbytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "physicalDiskState"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Status"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "blocked": {
+                        "color": "yellow",
+                        "index": 5,
+                        "text": "Blocked"
+                      },
+                      "failed": {
+                        "color": "dark-red",
+                        "index": 6,
+                        "text": "Failed"
+                      },
+                      "foreign": {
+                        "color": "yellow",
+                        "index": 3,
+                        "text": "Foreign"
+                      },
+                      "nonraid": {
+                        "color": "green",
+                        "index": 7,
+                        "text": "Non-RAID"
+                      },
+                      "offline": {
+                        "color": "red",
+                        "index": 4,
+                        "text": "Offline"
+                      },
+                      "online": {
+                        "color": "green",
+                        "index": 2,
+                        "text": "Online"
+                      },
+                      "readonly": {
+                        "color": "orange",
+                        "index": 9,
+                        "text": "Read-Only"
+                      },
+                      "ready": {
+                        "color": "blue",
+                        "index": 1,
+                        "text": "Ready"
+                      },
+                      "removed": {
+                        "color": "#808080",
+                        "index": 8,
+                        "text": "Removed"
+                      },
+                      "unknown": {
+                        "index": 0,
+                        "text": "Unkown"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #physicalDiskSmartAlertIndication"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Health"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0,
+                        "text": "OK"
+                      },
+                      "1": {
+                        "color": "orange",
+                        "index": 1,
+                        "text": "Pred. Failure"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 20,
+        "w": 7,
+        "x": 8,
+        "y": 16
+      },
+      "id": 298,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "physicalDiskName{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "disks-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "physicalDiskName",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "disks-capacity"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "physicalDiskCapacityInMB{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} * 1048576",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "disks-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "physicalDiskCapacityInMB",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "disks-state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "physicalDiskState{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} == 1",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "disks-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "physicalDiskState",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "disks-predictivefail"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "physicalDiskSmartAlertIndication{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "physicalDiskSmartAlertIndication"
+        }
+      ],
+      "title": "Physical Disk Status",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "physicalDiskNumber",
+            "mode": "outer"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "physicalDiskName",
+                "Value #physicalDiskCapacityInMB",
+                "physicalDiskState",
+                "physicalDiskProductID",
+                "Value #physicalDiskSmartAlertIndication"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "networkDeviceFQDD"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Device"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "networkDeviceConnectionStatus"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Status"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "connected": {
+                        "color": "green",
+                        "index": 0,
+                        "text": "Connected"
+                      },
+                      "disconnected": {
+                        "color": "transparent",
+                        "index": 1,
+                        "text": "Disconnected"
+                      },
+                      "driverBad": {
+                        "color": "red",
+                        "index": 2,
+                        "text": "Driver Bad"
+                      },
+                      "driverDisabled": {
+                        "color": "#808080",
+                        "index": 3,
+                        "text": "Driver Disabled"
+                      },
+                      "hardwareClosing": {
+                        "color": "yellow",
+                        "index": 6,
+                        "text": "Closing"
+                      },
+                      "hardwareInitalizing": {
+                        "color": "yellow",
+                        "index": 4,
+                        "text": "Initializing"
+                      },
+                      "hardwareNotReady": {
+                        "color": "yellow",
+                        "index": 7,
+                        "text": "Not Ready"
+                      },
+                      "hardwareResetting": {
+                        "color": "yellow",
+                        "index": 5,
+                        "text": "Resetting"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "applyToRow": false,
+                  "mode": "gradient",
+                  "type": "color-background",
+                  "wrapText": false
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "networkDeviceProductName"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Device Name"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "networkDeviceCurrentMACAddress"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "MAC Address"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 15,
+        "y": 16
+      },
+      "id": 564,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "networkDeviceFQDD{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "networkDeviceConnectionStatus{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} == 1",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "nic-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "nic-status"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "networkDeviceProductName{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "networkDeviceCurrentMACAddress{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "nic-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "C",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "nic-current_mac"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "Network Interfaces",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "networkDeviceIndex",
+            "mode": "outer"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "networkDeviceFQDD",
+                "networkDeviceProductName",
+                "networkDeviceCurrentMACAddress",
+                "networkDeviceConnectionStatus"
+              ]
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "networkDeviceFQDD"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 0,
+        "y": 18
+      },
+      "id": 653,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^systemOSName$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemOSName{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "bios-version"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "OS Name",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "systemOSName"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "critical": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "Critical"
+                },
+                "nonCritical": {
+                  "color": "orange",
+                  "index": 3,
+                  "text": "Non-Critical"
+                },
+                "nonRecoverable": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "Non-Recoverable"
+                },
+                "ok": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "OK"
+                },
+                "other": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "Other"
+                },
+                "unknown": {
+                  "color": "#808080",
+                  "index": 1,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#FA6400",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 2,
+        "y": 18
+      },
+      "id": 9,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^globalSystemStatus$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "globalSystemStatus{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} == 1",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power-state\" FROM \"esxi-01-idrac\" WHERE $timeFilter",
+          "range": false,
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "system-globalstatus"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "Global Status",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "globalSystemStatus"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "off": {
+                  "color": "red",
+                  "index": 2,
+                  "text": "Off"
+                },
+                "on": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "On"
+                },
+                "other": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "Other"
+                },
+                "unknown": {
+                  "color": "#808080",
+                  "index": 1,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#C4162A",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 4,
+        "y": 18
+      },
+      "id": 2,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^systemPowerState$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemPowerState{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} == 1",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power-state\" FROM \"esxi-01-idrac\" WHERE $timeFilter",
+          "range": false,
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power-state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "Power State",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "systemPowerState"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [
+            {
+              "options": {
+                "critical": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "Critical"
+                },
+                "nonCritical": {
+                  "color": "orange",
+                  "index": 3,
+                  "text": "Non-Critical"
+                },
+                "nonRecoverable": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "Non-Recoverable"
+                },
+                "ok": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "OK"
+                },
+                "other": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "Other"
+                },
+                "unknown": {
+                  "color": "#808080",
+                  "index": 1,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#FA6400",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 6,
+        "y": 18
+      },
+      "id": 444,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^powerSupplyStatus$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "powerSupplyStatus{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} == 1",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power-state\" FROM \"esxi-01-idrac\" WHERE $timeFilter",
+          "range": false,
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "psu-status"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "PSU Status",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "byVariable": false,
+            "include": {
+              "names": [
+                "powerSupplyLocationName",
+                "powerSupplyStatus"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "chassisBreachSensorFailure": {
+                  "color": "#808080",
+                  "index": 3,
+                  "text": "Sensor Fail"
+                },
+                "chassisBreached": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "Breach"
+                },
+                "chassisBreachedPrior": {
+                  "color": "yellow",
+                  "index": 2,
+                  "text": "Prior Breach"
+                },
+                "chassisNotBreached": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "No Breach"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 0,
+        "y": 20
+      },
+      "id": 93,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^intrusionReading$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "intrusionReading{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} == 1",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "intrusion-sensor"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "Intrusion",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "intrusionReading",
+                "intrusionLocationName"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "voltageIsBad": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "Bad"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "OK"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#FA6400",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 2,
+        "y": 20
+      },
+      "id": 677,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^voltageProbeDiscreteReading$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "voltageProbeDiscreteReading{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\", voltageProbeDiscreteReading!=\"voltageIsGood\"} == 1",
+          "format": "table",
+          "groupBy": [],
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power-state\" FROM \"esxi-01-idrac\" WHERE $timeFilter",
+          "range": false,
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "temp-status"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "Voltage Status",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "voltageProbeDiscreteReading",
+                "voltageProbeLocationName"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "critical": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "Critical"
+                },
+                "nonCritical": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "Non-Critical"
+                },
+                "nonRecoverable": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "Non-Recoverable"
+                },
+                "other": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "Other"
+                },
+                "unknown": {
+                  "color": "#808080",
+                  "index": 1,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "green",
+                  "index": 5,
+                  "text": "OK"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#FA6400",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 4,
+        "y": 20
+      },
+      "id": 407,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^temperatureProbeStatus$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "expr": "temperatureProbeStatus{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\", temperatureProbeStatus!=\"ok\"} == 1",
+          "format": "table",
+          "groupBy": [],
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power-state\" FROM \"esxi-01-idrac\" WHERE $timeFilter",
+          "range": true,
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "temp-status"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "Thermal Status",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "temperatureProbeLocationName",
+                "temperatureProbeStatus"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "critical": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "Critical"
+                },
+                "nonCritical": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "Non-Critical"
+                },
+                "nonRecoverable": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "Non-Recoverable"
+                },
+                "other": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "Other"
+                },
+                "unknown": {
+                  "color": "#808080",
+                  "index": 1,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "green",
+                  "index": 5,
+                  "text": "OK"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#FA6400",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 6,
+        "y": 20
+      },
+      "id": 406,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^memoryDeviceStatus$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "memoryDeviceStatus{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\", memoryDeviceStatus!=\"ok\"} == 1",
+          "format": "table",
+          "groupBy": [],
+          "instant": true,
+          "legendFormat": "DIMM {{memoryDeviceIndex}}",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power-state\" FROM \"esxi-01-idrac\" WHERE $timeFilter",
+          "range": false,
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "memory-status"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "RAM Status",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "memoryDeviceLocationName",
+                "memoryDeviceStatus"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "critical": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "Critical"
+                },
+                "nonCritical": {
+                  "color": "orange",
+                  "index": 3,
+                  "text": "Non-Critical"
+                },
+                "nonRecoverable": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "Non-Recoverable"
+                },
+                "ok": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "OK"
+                },
+                "other": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "Other"
+                },
+                "unknown": {
+                  "color": "#808080",
+                  "index": 1,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#FA6400",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 0,
+        "y": 22
+      },
+      "id": 405,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^globalStorageStatus$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "globalStorageStatus{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} == 1",
+          "format": "table",
+          "groupBy": [],
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power-state\" FROM \"esxi-01-idrac\" WHERE $timeFilter",
+          "range": false,
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "storage-status"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "Storage Status",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "globalStorageStatus"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "failed": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "Failed"
+                },
+                "predictiveFailure": {
+                  "color": "yellow",
+                  "index": 0,
+                  "text": "Predictive Fail"
+                },
+                "presenceDetected": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "OK"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "#808080",
+                  "index": 3,
+                  "text": "Missing"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#E0B400",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 2,
+        "y": 22
+      },
+      "id": 90,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^systemBatteryReading$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemBatteryReading{instance=\"$idrac_host\", systemBatteryLocationName=\"System Board CMOS Battery\"} == 1",
+          "format": "table",
+          "fullMetaSearch": false,
+          "groupBy": [],
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "cmos-batterystate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ],
+          "useBackend": false
+        }
+      ],
+      "title": "CMOS Battery",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "systemBatteryReading",
+                "systemBatteryLocationName"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 5,
+                  "text": "OK"
+                },
+                "6": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "Failed"
+                },
+                "failed": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "Failed"
+                },
+                "predictiveFailure": {
+                  "color": "yellow",
+                  "index": 0,
+                  "text": "Predictive Fail"
+                },
+                "presenceDetected": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "OK"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "#808080",
+                  "index": 3,
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#E0B400",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 2,
+        "x": 4,
+        "y": 22
+      },
+      "id": 91,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^systemBatteryReading$/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "systemBatteryReading{instance=\"$idrac_host\", systemBatteryLocationName=\"PERC1 ROMB Battery\"} == 1",
+          "format": "table",
+          "groupBy": [],
+          "instant": true,
+          "legendFormat": "__auto",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "raid-batterystate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "RAID Battery",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "systemBatteryLocationName",
+                "systemBatteryReading"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 600
+              },
+              {
+                "color": "red",
+                "value": 800
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 15,
+        "y": 23
+      },
+      "id": 147,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max",
+            "min"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(\n  avg_over_time(\n    amperageProbeReading{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\", amperageProbeLocationName=~\"PS\\\\d+ Current.*\"}[10m]) / 10, \"probe\", \"$1\", \"amperageProbeLocationName\", \"(PS\\\\d+).*\")\n* on(instance, probe)\nlabel_replace(\n  avg_over_time(\n    voltageProbeReading{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\", voltageProbeLocationName=~\"PS\\\\d+ Voltage.*\"}[10m]) / 1000, \"probe\", \"$1\", \"voltageProbeLocationName\", \"(PS\\\\d+).*\")",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{probe}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "System Watts",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "eventLogDateName"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Log Date"
+              },
+              {
+                "id": "custom.width",
+                "value": 175
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "eventLogRecord"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Log Entry"
+              },
+              {
+                "id": "unit",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "eventLogSeverityStatus"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "critical": {
+                        "color": "red",
+                        "index": 4,
+                        "text": "Critical"
+                      },
+                      "nonCritical": {
+                        "color": "orange",
+                        "index": 3,
+                        "text": "Non-Critical"
+                      },
+                      "nonRecoverable": {
+                        "color": "red",
+                        "index": 5,
+                        "text": "Non-Recoverable"
+                      },
+                      "ok": {
+                        "color": "green",
+                        "index": 2,
+                        "text": "OK"
+                      },
+                      "other": {
+                        "color": "blue",
+                        "index": 0,
+                        "text": "Other"
+                      },
+                      "unknown": {
+                        "color": "#808080",
+                        "index": 1,
+                        "text": "Unkown"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "displayName",
+                "value": "Severity"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 31,
+        "w": 8,
+        "x": 0,
+        "y": 24
+      },
+      "id": 332,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Log Date"
+          }
+        ]
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "eventLogDateName{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "eventLogDateName"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "eventLogRecord{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "log-number"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"log-dates\" FROM \"idrac-hosts\" WHERE (\"system-name\" =~ /^$idrac_host$/) AND $timeFilter GROUP BY \"log-number\" LIMIT 1",
+          "range": true,
+          "rawQuery": false,
+          "refId": "eventLogRecord",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "log-dates"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "eventLogSeverityStatus_info{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "log-number"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": false,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": true,
+          "refId": "eventLogSeverityStatus_info",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "log-entry"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "System Log Entries",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "eventLogRecordIndex",
+            "mode": "outer"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "eventLogDateName",
+                "eventLogRecord",
+                "eventLogSeverityStatus"
+              ]
+            }
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "dateFormat": "YYYYMMDDHHmmss.SSSSSS",
+                "destinationType": "time",
+                "targetField": "eventLogDateName"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 84
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 15,
+        "y": 31
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "alias": "CPU 1 Temp",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(temperatureProbeReading{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\", temperatureProbeLocationName=~\"CPU.*\"}[30m]) / 10",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "legendFormat": "{{temperatureProbeLocationName}}",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cpu1-temp"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  " / 10"
+                ],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "CPU Temp",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #memoryDeviceSize"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "kbytes"
+              },
+              {
+                "id": "displayName",
+                "value": "Size"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "memoryDeviceStatus"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Status"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "critical": {
+                        "color": "red",
+                        "index": 4,
+                        "text": "Critical Fail"
+                      },
+                      "nonCritical": {
+                        "color": "orange",
+                        "index": 3,
+                        "text": "Non-Critical Fail"
+                      },
+                      "nonRecoverable": {
+                        "color": "red",
+                        "index": 5,
+                        "text": "Non-Recoverable Fail"
+                      },
+                      "ok": {
+                        "color": "green",
+                        "index": 2,
+                        "text": "OK"
+                      },
+                      "other": {
+                        "color": "blue",
+                        "index": 0,
+                        "text": "Other"
+                      },
+                      "unknown": {
+                        "color": "#808080",
+                        "index": 1,
+                        "text": "Unknown"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "memoryDeviceLocationName"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "DIMM Slot"
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 7,
+        "x": 8,
+        "y": 36
+      },
+      "id": 652,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Health"
+          }
+        ]
+      },
+      "pluginVersion": "11.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "memoryDeviceSize{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "disks-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "memoryDeviceSize",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "disks-predictivefail"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "memoryDeviceStatus{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"} == 1",
+          "format": "table",
+          "groupBy": [
+            {
+              "params": [
+                "disks-name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "instant": true,
+          "legendFormat": "__auto",
+          "limit": "1",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": false,
+          "refId": "memoryDeviceStatus",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "disks-capacity"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "DIMM Status",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "memoryDeviceLocationName",
+            "mode": "outer"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "memoryDeviceLocationName",
+                "Value #memoryDeviceSize",
+                "memoryDeviceStatus"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent"
+              },
+              {
+                "color": "orange",
+                "value": 42
+              },
+              {
+                "color": "red",
+                "value": 47
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 15,
+        "y": 39
+      },
+      "id": 52,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.2",
+      "targets": [
+        {
+          "alias": "Inlet Temp",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time(temperatureProbeReading{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\", temperatureProbeLocationName=~\"System Board Inlet Temp|System Board Exhaust Temp\"}[30m]) / 10",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "instant": false,
+          "legendFormat": "{{temperatureProbeLocationName}}",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "inlet-temp"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  " / 10"
+                ],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "Air Temp",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red"
+              },
+              {
+                "color": "orange",
+                "value": 1000
+              }
+            ]
+          },
+          "unit": "rotrpm"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 15,
+        "y": 47
+      },
+      "id": 70,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.2",
+      "targets": [
+        {
+          "alias": "Fan 1",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(coolingDeviceReading{job=\"prometheus-snmp-exporter\", instance=\"$idrac_host\"}[30m])",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "legendFormat": "{{coolingDeviceLocationName}}",
+          "measurement": "idrac-hosts",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "range": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "fan1-speed"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "system-name",
+              "operator": "=~",
+              "value": "/^$idrac_host$/"
+            }
+          ]
+        }
+      ],
+      "title": "Fan Speed",
+      "type": "timeseries"
+    }
+  ],
+  "preload": false,
+  "refresh": "",
+  "schemaVersion": 40,
+  "tags": [
+    "idrac",
+    "snmp"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(globalSystemStatus{job=\"prometheus-snmp-exporter\"},instance)",
+        "includeAll": false,
+        "label": "iDrac Host",
+        "multi": true,
+        "name": "idrac_host",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(globalSystemStatus{job=\"prometheus-snmp-exporter\"},instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "sort": 5,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "nowDelay": "2m",
+    "refresh_intervals": [
+      "2m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "iDRAC Host Stats",
+  "uid": "P24pq0j321",
+  "version": 4,
+  "weekStart": ""
+}

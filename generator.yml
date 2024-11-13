@@ -1,0 +1,521 @@
+auths:
+  public_v2:
+    version: 2
+    community: public
+
+modules:
+  # Default IF-MIB interfaces table with ifIndex.
+  if_mib:
+    retries: 3
+    timeout: 15s
+    max_repetitions: 25
+
+    walk:
+      - sysUpTime
+      - interfaces
+      - ifXTable
+
+    lookups:
+      - source_indexes: [ifIndex]
+        lookup: ifAlias
+      - source_indexes: [ifIndex]
+        lookup: ifDescr
+      - source_indexes: [ifIndex]
+        lookup: ifName
+
+    overrides:
+      ifAdminStatus:
+        type: EnumAsStateSet
+      ifAlias:
+        ignore: true # Lookup metric
+      ifDescr:
+        ignore: true # Lookup metric
+      ifName:
+        ignore: true # Lookup metric
+      ifOperStatus:
+        type: EnumAsStateSet
+      ifSpecific:
+        type: DisplayString
+      ifType:
+        type: EnumAsInfo
+
+  # Dell iDRAC
+  dell_idrac:
+    retries: 3
+    timeout: 15s
+    max_repetitions: 25
+
+    walk:
+      - amperageProbeTable
+      - controllerTableEntry
+      - coolingDeviceTableEntry
+      - eventLogTable
+      - firmwareTableEntry
+      - fruTableEntry
+      - intrusionTableEntry
+      - memoryDeviceTableEntry
+      - networkDeviceTableEntry
+      - numEventLogEntries
+      - pCIDeviceTableEntry
+      - physicalDiskTableEntry
+      - powerSupplyTableEntry
+      - powerUsageTable
+      - processorDeviceStatusTableEntry
+      - processorDeviceTableEntry
+      - racFirmwareVersion
+      - racShortName
+      - statusGroup
+      - systemBatteryTableEntry
+      - systemBIOSTableEntry
+      - systemInfoGroup
+      - temperatureProbeTableEntry
+      - voltageProbeTable
+      - virtualDiskTableEntry
+
+    lookups:
+      - source_indexes: [amperageProbechassisIndex, amperageProbeIndex]
+        lookup: amperageProbeLocationName
+        drop_source_indexes: true
+      - source_indexes: [coolingDevicechassisIndex, coolingDeviceIndex]
+        lookup: coolingDeviceLocationName
+        drop_source_indexes: true
+      - source_indexes: [intrusionchassisIndex, intrusionIndex]
+        lookup: intrusionLocationName
+        drop_source_indexes: true
+      - source_indexes: [memoryDevicechassisIndex, memoryDeviceIndex]
+        lookup: memoryDeviceLocationName
+      - source_indexes: [memoryDevicechassisIndex, memoryDeviceIndex]
+        lookup: memoryDeviceBankLocationName
+        drop_source_indexes: true
+      - source_indexes: [powerSupplychassisIndex, powerSupplyIndex]
+        lookup: powerSupplyLocationName
+        drop_source_indexes: true
+      - source_indexes: [powerUsageChassisIndex, powerUsageIndex]
+        lookup: powerUsageEntityName
+        drop_source_indexes: true
+      - source_indexes: [processorDeviceStatusChassisIndex, processorDeviceStatusIndex]
+        lookup: temperatureProbeLocationName
+        drop_source_indexes: true
+      - source_indexes: [systemBatteryChassisIndex, systemBatteryIndex]
+        lookup: systemBatteryLocationName
+        drop_source_indexes: true
+      - source_indexes: [temperatureProbechassisIndex, temperatureProbeIndex]
+        lookup: temperatureProbeLocationName
+        drop_source_indexes: true
+      - source_indexes: [voltageProbechassisIndex, voltageProbeIndex]
+        lookup: voltageProbeLocationName
+        drop_source_indexes: true
+
+    overrides:
+      # Ignore lookup indexes
+      amperageProbechassisIndex:
+        ignore: true
+      amperageProbeIndex:
+        ignore: true
+      coolingDevicechassisIndex:
+        ignore: true
+      coolingDeviceIndex:
+        ignore: true
+      intrusionchassisIndex:
+        ignore: true
+      intrusionIndex:
+        ignore: true
+      memoryDevicechassisIndex:
+        ignore: true
+      memoryDeviceIndex:
+        ignore: true
+      powerSupplychassisIndex:
+        ignore: true
+      powerSupplyIndex:
+        ignore: true
+      processorDeviceStatusChassisIndex:
+        ignore: true
+      processorDeviceStatusIndex:
+        ignore: true
+      systemBatteryChassisIndex:
+        ignore: true
+      systemBatteryIndex:
+        ignore: true
+      temperatureProbechassisIndex:
+        ignore: true
+      temperatureProbeIndex:
+        ignore: true
+      voltageProbechassisIndex:
+        ignore: true
+      voltageProbeIndex:
+        ignore: true
+
+      # Override data types
+      amperageProbeStateCapabilities:
+        type: EnumAsInfo
+      amperageProbeDiscreteReading:
+        type: EnumAsStateSet
+      amperageProbeLocationName:
+        type: DisplayString
+      amperageProbeProbeCapabilities:
+        type: EnumAsInfo
+      amperageProbeStateSettings:
+        type: EnumAsStateSet
+      amperageProbeStatus:
+        type: EnumAsStateSet
+      amperageProbeType:
+        type: EnumAsInfo
+      controllerFQDD:
+        type: DisplayString
+      controllerBootMode:
+        type: EnumAsInfo
+      controllerCheckConsistencyMode:
+        type: EnumAsInfo
+      controllerCopyBackMode:
+        type: EnumAsInfo
+      controllerComponentStatus:
+        type: EnumAsStateSet
+      controllerEncryptionCapability:
+        type: EnumAsInfo
+      controllerEnhancedAutoImportForeignConfigMode:
+        type: EnumAsInfo
+      controllerLoadBalanceSetting:
+        type: EnumAsInfo
+      controllerMaxCapSpeed:
+        type: EnumAsInfo
+      controllerPatrolReadMode:
+        type: EnumAsStateSet
+      controllerRollUpStatus:
+        type: EnumAsStateSet
+      controllerSecurityStatus:
+        type: EnumAsInfo
+      controllerT10PICapability:
+        type: EnumAsInfo
+      coolingDeviceFQDD:
+        type: DisplayString
+      coolingDeviceDiscreteReading:
+        type: EnumAsStateSet
+      coolingDeviceLocationName:
+        type: DisplayString
+      coolingDeviceProbeCapabilities:
+        type: EnumAsInfo
+      coolingDeviceStateCapabilities:
+        type: EnumAsInfo
+      coolingDeviceStateSettings:
+        type: EnumAsStateSet
+      coolingDeviceStatus:
+        type: EnumAsStateSet
+      coolingDeviceSubType:
+        type: EnumAsInfo
+      coolingDeviceType:
+        type: EnumAsInfo
+      eventLogDateName:
+        type: DisplayString
+      eventLogRecord:
+        type: DisplayString
+      eventLogStateCapabilitiesUnique:
+        type: EnumAsInfo
+      eventLogSeverityStatus:
+        type: EnumAsInfo
+      firmwareStateCapabilities:
+        type: EnumAsInfo
+      firmwareStateSettings:
+        type: EnumAsStateSet
+      firmwareStatus:
+        type: EnumAsStateSet
+      firmwareType:
+        type: EnumAsInfo
+      firmwareTypeName:
+        type: DisplayString
+      firmwareVersionName:
+        type: DisplayString
+      fruFQDD:
+        type: DisplayString
+      fruInformationStatus:
+        type: EnumAsStateSet
+      fruManufacturerName:
+        type: DisplayString
+      fruPartNumberName:
+        type: DisplayString
+      fruRevisionName:
+        type: DisplayString
+      fruSerialNumberName:
+        type: DisplayString
+      globalStorageStatus:
+        type: EnumAsStateSet
+      globalSystemStatus:
+        type: EnumAsStateSet
+      intrusionLocationName:
+        type: DisplayString
+      intrusionReading:
+        type: EnumAsStateSet
+      intrusionStateCapabilities:
+        type: EnumAsInfo
+      intrusionStateSettings:
+        type: EnumAsStateSet
+      intrusionStatus:
+        type: EnumAsStateSet
+      intrusionType:
+        type: EnumAsStateSet
+      memoryDeviceBankLocationName:
+        type: DisplayString
+      memoryDeviceFQDD:
+        type: DisplayString
+      memoryDeviceLocationName:
+        type: DisplayString
+      memoryDeviceManufacturerName:
+        type: DisplayString
+      memoryDevicePartNumberName:
+        type: DisplayString
+      memoryDeviceSerialNumberName:
+        type: DisplayString
+      memoryDeviceType:
+        type: EnumAsInfo
+      networkDeviceCapabilities:
+        type: EnumAsInfo
+      networkDeviceConnectionStatus:
+        type: EnumAsStateSet
+      networkDeviceCurrentMACAddress:
+        type: PhysAddress48
+      networkDeviceFQDD:
+        type: DisplayString
+      networkDeviceiSCSICapabilityFlags:
+        type: EnumAsInfo
+      networkDevicePermanentMACAddress:
+        type: PhysAddress48
+      networkDeviceProductName:
+        type: DisplayString
+      networkDeviceStatus:
+        type: EnumAsStateSet
+      memoryDeviceStateCapabilities:
+        type: EnumAsInfo
+      memoryDeviceStateSettings:
+        type: EnumAsStateSet
+      memoryDeviceStatus:
+        type: EnumAsStateSet
+      memoryDeviceTechnology:
+        type: EnumAsInfo
+      networkDeviceTOECapabilityFlags:
+        type: EnumAsInfo
+      networkDeviceVendorName:
+        type: DisplayString
+      pCIDeviceDescriptionName:
+        type: DisplayString
+      pCIDeviceFQDD:
+        type: DisplayString
+      pCIDeviceManufacturerName:
+        type: DisplayString
+      pCIDeviceStateCapabilities:
+        type: EnumAsInfo
+      pCIDeviceStateSettings:
+        type: EnumAsStateSet
+      pCIDeviceStatus:
+        type: EnumAsStateSet
+      physicalDiskBusType:
+        type: EnumAsInfo
+      physicalDiskCapableSpeed:
+        type: EnumAsInfo
+      physicalDiskComponentStatus:
+        type: EnumAsStateSet
+      physicalDiskFormFactor:
+        type: EnumAsInfo
+      physicalDiskFQDD:
+        type: DisplayString
+      physicalDiskMediaType:
+        type: EnumAsInfo
+      physicalDiskNegotiatedSpeed:
+        type: EnumAsInfo
+      physicalDiskOperationalState:
+        type: EnumAsStateSet
+      physicalDiskPCIeCapableLinkWidth:
+        type: EnumAsInfo
+      physicalDiskPCIeNegotiatedLinkWidth:
+        type: EnumAsInfo
+      physicalDiskPowerState:
+        type: EnumAsStateSet
+      physicalDiskSecurityStatus:
+        type: EnumAsInfo
+      physicalDiskSpareState:
+        type: EnumAsStateSet
+      physicalDiskState:
+        type: EnumAsStateSet
+      physicalDiskT10PICapability:
+        type: EnumAsInfo
+      powerSupplyFQDD:
+        type: DisplayString
+      powerSupplyConfigurationErrorType:
+        type: EnumAsStateSet
+      powerSupplyLocationName:
+        type: DisplayString
+      powerSupplySensorState:
+        type: EnumAsStateSet
+      powerSupplyStateCapabilitiesUnique:
+        type: EnumAsInfo
+      powerSupplyStateSettingsUnique:
+        type: EnumAsStateSet
+      powerSupplyStatus:
+        type: EnumAsStateSet
+      powerSupplyType:
+        type: EnumAsInfo
+      powerUsageCumulativeWattageStartDateName:
+        type: DisplayString
+      powerUsageEntityName:
+        type: DisplayString
+      powerUsagePeakWattsReadingDateName:
+        type: DisplayString
+      powerUsagePeakWattsStartDateName:
+        type: DisplayString
+      powerUsagePeakAmpsReadingDateName:
+        type: DisplayString
+      powerUsagePeakAmpsStartDateName:
+        type: DisplayString
+      powerUsagePowerCapCapabilities:
+        type: EnumAsInfo
+      powerUsagePowerCapSetting:
+        type: EnumAsStateSet
+      powerUsageStateCapabilities:
+        type: EnumAsInfo
+      powerUsageStateSettings:
+        type: EnumAsStateSet
+      powerUsageStatus:
+        type: EnumAsStateSet
+      processorDeviceBrandName:
+        type: DisplayString
+      processorDeviceFamily:
+        type: EnumAsInfo
+      processorDeviceFQDD:
+        type: DisplayString
+      processorDeviceManufacturerName:
+        type: DisplayString
+      processorDeviceStateCapabilities:
+        type: EnumAsInfo
+      processorDeviceStatusReading:
+        type: EnumAsStateSet
+      processorDeviceStateSettings:
+        type: EnumAsStateSet
+      processorDeviceStatus:
+        type: EnumAsStateSet
+      processorDeviceStatusStatus:
+        type: EnumAsStateSet
+      processorDeviceStatusLocationName:
+        type: DisplayString
+      processorDeviceStatusState:
+        type: EnumAsStateSet
+      processorDeviceStatusStateCapabilities:
+        type: EnumAsInfo
+      processorDeviceStatusStateSettings:
+        type: EnumAsStateSet
+      processorDeviceType:
+        type: EnumAsInfo
+      processorDeviceVersionName:
+        type: DisplayString
+      racFirmwareVersion:
+        type: DisplayString
+      racShortName:
+        type: DisplayString
+      systemAisleName:
+        type: DisplayString
+      systemAssetTag:
+        type: DisplayString
+      systemBatteryLocationName:
+        type: DisplayString
+      systemBatteryReading:
+        type: EnumAsStateSet
+      systemBatteryStateCapabilities:
+        type: EnumAsInfo
+      systemBatteryStateSettings:
+        type: EnumAsStateSet
+      systemBatteryStatus:
+        type: EnumAsStateSet
+      systemBIOSManufacturerName:
+        type: DisplayString
+      systemBIOSStateCapabilities:
+        type: EnumAsInfo
+      systemBIOSStateSettings:
+        type: EnumAsStateSet
+      systemBIOSStatus:
+        type: EnumAsStateSet
+      systemBIOSReleaseDateName:
+        type: DisplayString
+      systemBIOSVersionName:
+        type: DisplayString
+      systemBladeGeometry:
+        type: EnumAsInfo
+      systemBladeSlotNumber:
+        type: DisplayString
+      systemDataCenterName:
+        type: DisplayString
+      systemExpressServiceCode:
+        type: DisplayString
+      systemFormFactor:
+        type: EnumAsInfo
+      systemFQDN:
+        type: DisplayString
+      systemLCDStatus:
+        type: EnumAsStateSet
+      systemLockdownMode:
+        type: EnumAsStateSet
+      systemModelName:
+        type: DisplayString
+      systemNodeID:
+        type: DisplayString
+      systemOEMOSVersion:
+        type: DisplayString
+      systemOSName:
+        type: DisplayString
+      systemOSVersion:
+        type: DisplayString
+      systemPowerState:
+        type: EnumAsStateSet
+      systemRackName:
+        type: DisplayString
+      systemRackSlot:
+        type: DisplayString
+      systemRoomName:
+        type: DisplayString
+      systemServiceTag:
+        type: DisplayString
+      temperatureProbeDiscreteReading:
+        type: EnumAsStateSet
+      temperatureProbeLocationName:
+        type: DisplayString
+      temperatureProbeProbeCapabilities:
+        type: EnumAsInfo
+      temperatureProbeStateCapabilities:
+        type: EnumAsInfo
+      temperatureProbeStateSettings:
+        type: EnumAsStateSet
+      temperatureProbeStatus:
+        type: EnumAsStateSet
+      temperatureProbeType:
+        type: EnumAsInfo
+      virtualDiskDiskCachePolicy:
+        type: EnumAsInfo
+      virtualDiskComponentStatus:
+        type: EnumAsStateSet
+      virtualDiskFQDD:
+        type: DisplayString
+      virtualDiskLayout:
+        type: EnumAsInfo
+      virtualDiskOperationalState:
+        type: EnumAsStateSet
+      virtualDiskState:
+        type: EnumAsStateSet
+      virtualDiskReadPolicy:
+        type: EnumAsInfo
+      virtualDiskStripeSize:
+        type: EnumAsInfo
+      virtualDiskT10PIStatus:
+        type: EnumAsInfo
+      virtualDiskWritePolicy:
+        type: EnumAsInfo
+      voltageProbeDiscreteReading:
+        type: EnumAsStateSet
+      voltageProbeLocationName:
+        type: DisplayString
+      voltageProbeProbeCapabilities:
+        type: EnumAsInfo
+      voltageProbeStateCapabilities:
+        type: EnumAsInfo
+      voltageProbeStateSettings:
+        type: EnumAsStateSet
+      voltageProbeStatus:
+        type: EnumAsStateSet
+      voltageProbeType:
+        type: EnumAsInfo
+
