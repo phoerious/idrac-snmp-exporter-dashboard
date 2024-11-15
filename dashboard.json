@@ -876,27 +876,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Systems OK"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Critical Fails"
+              "options": "Critical Failures"
             },
             "properties": [
               {
@@ -920,7 +900,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Non-Critical Fails"
+              "options": "Non-Critical Failures"
             },
             "properties": [
               {
@@ -934,78 +914,6 @@
                     },
                     {
                       "color": "orange",
-                      "value": 1
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Non-Recoverable Fails"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    },
-                    {
-                      "color": "red",
-                      "value": 1
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Other Status"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    },
-                    {
-                      "color": "blue",
-                      "value": 1
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Unknown Status"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    },
-                    {
-                      "color": "#848484",
                       "value": 1
                     }
                   ]
@@ -1048,11 +956,11 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"ok\"} == 1)",
+          "expr": "sum(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"ok\"})",
           "instant": true,
           "legendFormat": "Systems OK",
           "range": false,
-          "refId": "A"
+          "refId": "OK"
         },
         {
           "datasource": {
@@ -1061,12 +969,12 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"nonCritical\"} == 1)",
+          "expr": "sum(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"critical\"})",
           "hide": false,
           "instant": true,
-          "legendFormat": "Critical Fails",
+          "legendFormat": "Critical Failures",
           "range": false,
-          "refId": "B"
+          "refId": "Critical"
         },
         {
           "datasource": {
@@ -1075,57 +983,15 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"critical\"} == 1)",
+          "expr": "sum(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"nonCritical\"})",
           "hide": false,
           "instant": true,
-          "legendFormat": "Non-Critical Fails",
+          "legendFormat": "Non-Critical Failures",
           "range": false,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"nonRecoverable\"} == 1)",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "Non-Recoverable Fails",
-          "range": false,
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"other\"} == 1)",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "Other Status",
-          "range": false,
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(globalSystemStatus{job=\"prometheus-snmp-exporter\", globalSystemStatus=\"unknown\"} == 1)",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "Unknown Status",
-          "range": false,
-          "refId": "F"
+          "refId": "Non-Critical"
         }
       ],
-      "title": "System Status",
+      "title": "Status Summary",
       "type": "stat"
     },
     {
@@ -5048,6 +4914,6 @@
   "timezone": "",
   "title": "iDRAC Host Stats",
   "uid": "P24pq0j321",
-  "version": 8,
+  "version": 11,
   "weekStart": ""
 }
