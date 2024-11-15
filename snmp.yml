@@ -17,7 +17,11 @@ modules:
     - 1.3.6.1.4.1.674.10892.5.4.1100.80.1
     - 1.3.6.1.4.1.674.10892.5.4.1100.90.1
     - 1.3.6.1.4.1.674.10892.5.4.2000.10.1
-    - 1.3.6.1.4.1.674.10892.5.4.300.40
+    - 1.3.6.1.4.1.674.10892.5.4.300.40.1.1
+    - 1.3.6.1.4.1.674.10892.5.4.300.40.1.2
+    - 1.3.6.1.4.1.674.10892.5.4.300.40.1.5
+    - 1.3.6.1.4.1.674.10892.5.4.300.40.1.7
+    - 1.3.6.1.4.1.674.10892.5.4.300.40.1.8
     - 1.3.6.1.4.1.674.10892.5.4.300.50.1
     - 1.3.6.1.4.1.674.10892.5.4.300.60.1
     - 1.3.6.1.4.1.674.10892.5.4.300.70.1
@@ -1718,36 +1722,6 @@ modules:
         type: gauge
       - labelname: eventLogRecordIndex
         type: gauge
-    - name: eventLogStateCapabilitiesUnique
-      oid: 1.3.6.1.4.1.674.10892.5.4.300.40.1.3
-      type: EnumAsInfo
-      help: 0300.0040.0001.0003 This attribute defines the state capabilities of the
-        object that is writing the event log. - 1.3.6.1.4.1.674.10892.5.4.300.40.1.3
-      indexes:
-      - labelname: eventLogchassisIndex
-        type: gauge
-      - labelname: eventLogRecordIndex
-        type: gauge
-      enum_values:
-        1: unknown
-        2: onlineCapable
-        4: notReadyCapable
-        8: resetCapable
-    - name: eventLogStateSettingsUnique
-      oid: 1.3.6.1.4.1.674.10892.5.4.300.40.1.4
-      type: gauge
-      help: 0300.0040.0001.0004 This attribute defines the state settings of the object
-        that is writing the event log. - 1.3.6.1.4.1.674.10892.5.4.300.40.1.4
-      indexes:
-      - labelname: eventLogchassisIndex
-        type: gauge
-      - labelname: eventLogRecordIndex
-        type: gauge
-      enum_values:
-        1: unknown
-        2: online
-        4: notReady
-        8: reset
     - name: eventLogRecord
       oid: 1.3.6.1.4.1.674.10892.5.4.300.40.1.5
       type: DisplayString
@@ -1758,20 +1732,6 @@ modules:
         type: gauge
       - labelname: eventLogRecordIndex
         type: gauge
-    - name: eventLogFormat
-      oid: 1.3.6.1.4.1.674.10892.5.4.300.40.1.6
-      type: gauge
-      help: 0300.0040.0001.0006 This attribute defines the format of the event log
-        record. - 1.3.6.1.4.1.674.10892.5.4.300.40.1.6
-      indexes:
-      - labelname: eventLogchassisIndex
-        type: gauge
-      - labelname: eventLogRecordIndex
-        type: gauge
-      enum_values:
-        1: raw
-        2: ascii
-        3: uniCode
     - name: eventLogSeverityStatus
       oid: 1.3.6.1.4.1.674.10892.5.4.300.40.1.7
       type: EnumAsInfo
@@ -5456,9 +5416,9 @@ modules:
       indexes:
       - labelname: virtualDiskNumber
         type: gauge
-    max_repetitions: 25
-    retries: 3
-    timeout: 15s
+    max_repetitions: 40
+    retries: 1
+    timeout: 30s
   if_mib:
     walk:
     - 1.3.6.1.2.1.2
@@ -6719,4 +6679,4 @@ modules:
         type: DisplayString
     max_repetitions: 25
     retries: 3
-    timeout: 15s
+    timeout: 10s

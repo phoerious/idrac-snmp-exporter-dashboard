@@ -7,7 +7,7 @@ modules:
   # Default IF-MIB interfaces table with ifIndex.
   if_mib:
     retries: 3
-    timeout: 15s
+    timeout: 10s
     max_repetitions: 25
 
     walk:
@@ -41,15 +41,19 @@ modules:
 
   # Dell iDRAC
   dell_idrac:
-    retries: 3
-    timeout: 15s
-    max_repetitions: 25
+    retries: 1
+    timeout: 30s
+    max_repetitions: 40
 
     walk:
       - amperageProbeTable
       - controllerTableEntry
       - coolingDeviceTableEntry
-      - eventLogTable
+      - eventLogchassisIndex
+      - eventLogRecordIndex
+      - eventLogRecord
+      - eventLogSeverityStatus
+      - eventLogDateName
       - firmwareTableEntry
       - fruTableEntry
       - intrusionTableEntry
